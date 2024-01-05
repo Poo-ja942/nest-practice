@@ -1,5 +1,5 @@
-import { ChatRoom } from 'src/chat-rooms/entities/chat-room.entity';
-import { User } from 'src/users/entities/user.entity';
+import { ChatRoom } from "src/chat-rooms/entities/chat-room.entity";
+import { User } from "src/users/entities/user.entity";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,42 +8,34 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   UpdateDateColumn,
-  BeforeUpdate,
-} from 'typeorm';
+} from "typeorm";
 
 @Entity()
 export class Message {
   @PrimaryGeneratedColumn()
-  message_id: number;
+  id: number;
 
   @ManyToOne(() => User, (user) => user.messages_sent)
   sender: User;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.messages_receive)
   receiver: User;
 
   @ManyToOne(() => ChatRoom, (chatRoom) => chatRoom.messages)
   chat_room: ChatRoom;
 
-  @Column()
+  @Column({ name: "content", nullable: true })
   content: string;
 
-  @Column()
-  timestamp: Date;
-
-  @Column()
+  @Column({ name: "type" })
   type: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp', select: false })
+  @CreateDateColumn({ name: "created_at", type: "timestamp", select: false })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', select: false })
+  @UpdateDateColumn({ name: "updated_at", type: "timestamp", select: false })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', select: false })
+  @DeleteDateColumn({ name: "deleted_at", type: "timestamp", select: false })
   deletedAt: Date;
-
-  @BeforeUpdate() async beforeUpdateQueryExecution() {
-    this.updatedAt = new Date();
-  }
 }

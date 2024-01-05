@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ArchivedChatsController } from './archived-chats.controller';
-import { ArchivedChatsService } from './archived-chats.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { ArchivedChatsController } from "./archived-chats.controller";
+import { ArchivedChatsService } from "./archived-chats.service";
 
-describe('ArchivedChatsController', () => {
+describe("ArchivedChatsController", () => {
   let controller: ArchivedChatsController;
 
   beforeEach(async () => {
@@ -14,7 +14,7 @@ describe('ArchivedChatsController', () => {
     controller = module.get<ArchivedChatsController>(ArchivedChatsController);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });

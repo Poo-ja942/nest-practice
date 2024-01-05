@@ -1,16 +1,16 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { ValidationPipe } from '@nestjs/common';
-import Helmet from 'helmet';
-import * as compression from 'compression';
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { ValidationPipe } from "@nestjs/common";
+import Helmet from "helmet";
+import * as compression from "compression";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     /* Enables request from given domains and types */
     cors: {
       origin: process.env.CORS_ORIGIN,
-      methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
+      methods: ["GET", "POST", "PATCH", "OPTIONS"],
     },
     /* Whether to use underlying platform body parser */
     bodyParser: true,

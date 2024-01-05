@@ -1,9 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ArchivedChatsService } from './archived-chats.service';
-import { CreateArchivedChatDto } from './dto/create-archived-chat.dto';
-import { UpdateArchivedChatDto } from './dto/update-archived-chat.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from "@nestjs/common";
+import { ArchivedChatsService } from "./archived-chats.service";
+import { CreateArchivedChatDto } from "./dto/create-archived-chat.dto";
+import { UpdateArchivedChatDto } from "./dto/update-archived-chat.dto";
 
-@Controller('archived-chats')
+@Controller("archived-chats")
 export class ArchivedChatsController {
   constructor(private readonly archivedChatsService: ArchivedChatsService) {}
 
@@ -17,18 +25,21 @@ export class ArchivedChatsController {
     return this.archivedChatsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.archivedChatsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateArchivedChatDto: UpdateArchivedChatDto) {
+  @Patch(":id")
+  update(
+    @Param("id") id: string,
+    @Body() updateArchivedChatDto: UpdateArchivedChatDto,
+  ) {
     return this.archivedChatsService.update(+id, updateArchivedChatDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.archivedChatsService.remove(+id);
   }
 }
