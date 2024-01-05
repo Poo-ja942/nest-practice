@@ -7,6 +7,10 @@ import {
   Column,
   ManyToMany,
   OneToMany,
+  BeforeUpdate,
+  CreateDateColumn,
+  DeleteDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 @Entity()
 export class ChatRoom {
@@ -24,4 +28,17 @@ export class ChatRoom {
 
   @OneToMany(() => ArchivedChat, (archivedChat) => archivedChat.room)
   archived_chats: ArchivedChat[];
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp', select: false })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', select: false })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', select: false })
+  deletedAt: Date;
+
+  @BeforeUpdate() async beforeUpdateQueryExecution() {
+    this.updatedAt = new Date();
+  }
 }

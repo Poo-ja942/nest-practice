@@ -7,24 +7,34 @@ import {
   Column,
   OneToMany,
   ManyToMany,
+  BeforeUpdate,
+  CreateDateColumn,
+  DeleteDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  user_id: number;
+  id: number;
 
-  @Column()
-  username: string;
+  @Column({ name: 'name' })
+  name: string;
 
-  @Column()
+  @Column({ name: 'password' })
   password: string;
 
-  @Column()
+  @Column({ name: 'email' })
   email: string;
 
-  @Column()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp', select: false })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', select: false })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', select: false })
+  deletedAt: Date;
 
   @OneToMany(() => Message, (message) => message.sender)
   messages_sent: Message[];
@@ -34,4 +44,8 @@ export class User {
 
   @OneToMany(() => ArchivedChat, (archivedChat) => archivedChat.archived_by)
   archived_chats: ArchivedChat[];
+
+  @BeforeUpdate() async beforeUpdateQueryExecution() {
+    this.updatedAt = new Date();
+  }
 }
